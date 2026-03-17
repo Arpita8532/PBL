@@ -1,24 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { Truck, BarChart3, TrendingUp, Info, Package, Calendar } from 'lucide-react';
+import { Truck, BarChart3, TrendingUp, Info, Package, Calendar, Radio, RefreshCw } from 'lucide-react';
 import StatCard from '../components/StatCard';
+
+const POLL_INTERVAL = 10000; // 10 seconds
 
 const SocietyDashboard = ({ user, onNavigate }) => {
   const [pickups, setPickups] = useState([]);
+  const [lastRefresh, setLastRefresh] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchPickups = useCallback(async (silent = false) => {
+    if (!silent) setLoading(true);
+    try {
+      const response = await axios.get('http://localhost:5000/pickup/list');
+      const userPickups = response.data.filter(p => p.societyId === user.identifier || p.societyName === user.name);
+      setPickups(userPickups);
+      setLastRefresh(new Date());
+    } catch (err) {
+      console.error("Failed to fetch pickups", err);
+    } finally {
+      if (!silent) setLoading(false);
+    }
+  }, [user]);
 
   useEffect(() => {
-    // In a real app we'd fetch this based on user.identifier
-    const fetchPickups = async () => {
-      try {
-        const response = await axios.get('http://localhost:5000/pickup/list');
-        const userPickups = response.data.filter(p => p.societyId === user.identifier || p.societyName === user.name);
-        setPickups(userPickups);
-      } catch (err) {
-        console.error("Failed to fetch pickups", err);
-      }
-    };
     fetchPickups();
-  }, [user]);
+    const interval = setInterval(() => fetchPickups(true), POLL_INTERVAL);
+    return () => clearInterval(interval);
+  }, [fetchPickups]);
 
   const totalCredits = pickups.reduce((acc, curr) => acc + (curr.creditsAwarded || 0), 0);
   const totalWeight = pickups.reduce((acc, curr) => acc + (curr.weight || 0), 0);
@@ -31,8 +41,16 @@ const SocietyDashboard = ({ user, onNavigate }) => {
             <h1 className="text-3xl font-black mb-1 text-white">Welcome, {user.name}!</h1>
             <p className="text-green-100 opacity-90 text-lg">Doing great for the environment today.</p>
           </div>
-          <div className="bg-white/20 p-3 rounded-2xl backdrop-blur-sm">
-            <TrendingUp className="w-8 h-8" />
+          <div className="flex items-center space-x-3">
+            {lastRefresh && (
+              <div className="flex items-center space-x-2 bg-white/20 px-3 py-1.5 rounded-full backdrop-blur-sm">
+                <Radio className="w-4 h-4 text-green-200 animate-pulse" />
+                <span className="text-xs font-bold uppercase tracking-widest text-green-100">Live</span>
+              </div>
+            )}
+            <div className="bg-white/20 p-3 rounded-2xl backdrop-blur-sm">
+              <TrendingUp className="w-8 h-8" />
+            </div>
           </div>
         </div>
       </div>
@@ -96,7 +114,16 @@ const SocietyDashboard = ({ user, onNavigate }) => {
            <div className="bg-white rounded-2xl border border-green-100 shadow-sm overflow-hidden h-full">
               <div className="px-6 py-5 border-b border-green-50 bg-gray-50 flex justify-between items-center">
                  <h2 className="text-xl font-bold text-gray-800">Recent Pickup Requests</h2>
-                 <Package className="w-5 h-5 text-gray-400" />
+                 <div className="flex items-center space-x-2">
+                    <button 
+                      onClick={() => fetchPickups(false)}
+                      className="p-2 hover:bg-green-50 rounded-lg transition-colors text-gray-400 hover:text-green-700"
+                      title="Refresh"
+                    >
+                      <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+                    </button>
+                    <Package className="w-5 h-5 text-gray-400" />
+                 </div>
               </div>
               
               <div className="overflow-x-auto">
@@ -118,7 +145,7 @@ const SocietyDashboard = ({ user, onNavigate }) => {
                              </td>
                              <td className="py-4 px-6 text-gray-500 text-sm font-medium flex items-center">
                                 <Calendar className="w-4 h-4 mr-2 text-gray-400" />
-                                {new Date(p.date || p.createdAt || p.requestDate || Date.now()).toLocaleDateString()}
+                                {new Date(p.date || (p.createdAt?._seconds ? p.createdAt._seconds * 1000 : p.createdAt) || Date.now()).toLocaleDateString()}
                              </td>
                              <td className="py-4 px-6 text-right">
                                 <span className={`inline-block px-3 py-1 text-xs font-bold rounded-full uppercase tracking-wider

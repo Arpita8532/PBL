@@ -17,6 +17,7 @@ const KabadiwalaDashboard = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
   const [lastRefresh, setLastRefresh] = useState(null);
+  const [activeTab, setActiveTab] = useState('pending');
 
   const fetchPickups = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
@@ -71,18 +72,24 @@ const KabadiwalaDashboard = () => {
   const completedPickups = allPickups.filter(p => p.status === 'completed');
   const totalWaste = completedPickups.reduce((sum, p) => sum + (p.weight || 0), 0);
 
-  // Normalizing pickups for PickupCard
-  const displayPickups = allPickups.map(p => ({
+  // Normalize and group pickups
+  const normalizedPickups = allPickups.map(p => ({
      ...p,
      status: acceptedPickupId === (p.id || p._id) ? 'accepted' : p.status === 'requested' ? 'pending' : p.status
   }));
+  
+  const displayPickups = normalizedPickups.filter(p => {
+    if (activeTab === 'pending') {
+      return p.status === 'pending' || p.status === 'accepted';
+    } else {
+      return p.status === 'completed';
+    }
+  });
 
-  // Sort: Accepted first, then pending, then completed
+  // Sort: Accepted first, then by date
   displayPickups.sort((a, b) => {
-     if (a.status === 'accepted') return -1;
-     if (b.status === 'accepted') return 1;
-     if (a.status === 'pending' && b.status !== 'pending') return -1;
-     if (b.status === 'pending' && a.status !== 'pending') return 1;
+     if (a.status === 'accepted' && b.status !== 'accepted') return -1;
+     if (b.status === 'accepted' && a.status !== 'accepted') return 1;
      return new Date(b.createdAt?._seconds ? b.createdAt._seconds * 1000 : b.date) - new Date(a.createdAt?._seconds ? a.createdAt._seconds * 1000 : a.date);
   });
 
@@ -151,7 +158,31 @@ const KabadiwalaDashboard = () => {
       </div>
 
       {/* Requests */}
-      <h2 className="text-xl font-bold text-gray-800 mb-6">Pickup Queue</h2>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 space-y-4 sm:space-y-0">
+        <h2 className="text-xl font-bold text-gray-800">Pickup Queue</h2>
+        <div className="flex bg-gray-100 p-1 rounded-xl">
+          <button
+            onClick={() => setActiveTab('pending')}
+            className={`px-6 py-2 rounded-lg font-bold text-sm transition-all shadow-sm ${
+              activeTab === 'pending'
+                ? 'bg-white text-green-800'
+                : 'text-gray-500 hover:text-gray-700 hover:bg-white/50'
+            }`}
+          >
+            Pending
+          </button>
+          <button
+            onClick={() => setActiveTab('completed')}
+            className={`px-6 py-2 rounded-lg font-bold text-sm transition-all shadow-sm ${
+              activeTab === 'completed'
+                ? 'bg-white text-emerald-800'
+                : 'text-gray-500 hover:text-gray-700 hover:bg-white/50'
+            }`}
+          >
+            Completed
+          </button>
+        </div>
+      </div>
       
       {displayPickups.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -172,7 +203,7 @@ const KabadiwalaDashboard = () => {
         !loading && (
           <div className="py-20 text-center bg-white rounded-3xl border border-dashed border-green-200">
             <Package className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 font-medium">No pickup requests found.</p>
+            <p className="text-gray-500 font-medium">No {activeTab} pickup requests found.</p>
           </div>
         )
       )}

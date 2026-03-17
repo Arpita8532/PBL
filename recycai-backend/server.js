@@ -102,7 +102,8 @@ app.post('/pickup/confirm', async (req, res) => {
     // Update pickup status
     await pickupRef.update({
       status: "completed",
-      weight: weight
+      weight: weight,
+      creditsAwarded: credits
     });
 
     // Update society total credits
@@ -127,6 +128,27 @@ app.post('/pickup/confirm', async (req, res) => {
  * Get all pickups (for Kabadiwala dashboard)
  */
 app.get('/pickups', async (req, res) => {
+  try {
+    const pickupsSnapshot = await db.collection('pickups')
+      .orderBy('createdAt', 'desc')
+      .get();
+
+    const pickups = pickupsSnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data()
+    }));
+
+    res.status(200).json(pickups);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+/**
+ * 4b. GET /pickup/list
+ * Alias for /pickups (used by society dashboard)
+ */
+app.get('/pickup/list', async (req, res) => {
   try {
     const pickupsSnapshot = await db.collection('pickups')
       .orderBy('createdAt', 'desc')

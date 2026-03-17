@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowRight, Leaf, Recycle, RefreshCw, Trash2, Users, LineChart, Globe, Zap, ArrowDown, CheckCircle2, IndianRupee, Search, ScanLine, Clock, Lightbulb } from 'lucide-react';
+import { ArrowRight, Leaf, Recycle, RefreshCw, Trash2, Users, Globe, Zap, ArrowDown, CheckCircle2, IndianRupee, Search, ScanLine, Clock, Lightbulb, Trophy, Gift, Medal } from 'lucide-react';
 import InfoCard from '../components/InfoCard';
 import StatCard from '../components/StatCard';
 
@@ -19,124 +19,14 @@ const HomePage = ({ onNavigate }) => {
           <p className="text-xl md:text-3xl font-medium text-green-50 mb-12 max-w-3xl leading-relaxed">
             Digitally connecting citizens, collectors, and recyclers. Be part of the municipal green initiative.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-             <button 
-                onClick={() => onNavigate('request')}
-                className="bg-white text-green-800 hover:bg-green-50 px-8 py-4 rounded-2xl font-black text-lg transition-all shadow-xl hover:shadow-2xl flex items-center justify-center space-x-2"
-             >
-                <span>Request Pickup</span>
-                <ArrowRight className="w-5 h-5" />
-             </button>
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mt-4">
              <button 
                 onClick={() => onNavigate('leaderboard')}
-                className="bg-green-700 hover:bg-green-600 text-white border border-green-500 px-8 py-4 rounded-2xl font-bold text-lg transition-all shadow-lg flex items-center justify-center space-x-2"
+                className="bg-white text-green-800 hover:bg-green-50 px-10 py-5 rounded-2xl font-black text-xl transition-all shadow-xl hover:shadow-2xl flex items-center justify-center space-x-3 w-full sm:w-auto"
              >
-                <LineChart className="w-5 h-5" />
+                <Trophy className="w-6 h-6 text-yellow-500" />
                 <span>View Leaderboard</span>
              </button>
-          </div>
-        </div>
-      </section>
-
-      {/* About Recycling Section (RRR) */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-4">The 3 R's of Sustainability</h2>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto">Our government portal encourages every citizen to follow these core principles.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <InfoCard 
-              icon={<Trash2 className="w-8 h-8" />}
-              title="Reduce"
-              description="Minimize waste generation by making smart purchasing decisions and avoiding single-use plastics."
-              colorClass="bg-red-50"
-            />
-            <InfoCard 
-              icon={<RefreshCw className="w-8 h-8" />}
-              title="Reuse"
-              description="Find new purposes for old items. Donate, repair, or upcycle instead of throwing away."
-              colorClass="bg-blue-50"
-            />
-            <InfoCard 
-              icon={<Recycle className="w-8 h-8" />}
-              title="Recycle"
-              description="Separate your waste so valuable materials can be processed and turned into new products."
-              colorClass="bg-green-50"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Environmental Impact Stats */}
-      <section className="py-20 px-6 bg-green-50 border-y border-green-100 relative">
-        <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-5xl font-black text-green-900 mb-4">Citywide Impact</h2>
-                <p className="text-xl text-green-700 max-w-2xl mx-auto">Real-time statistics from our municipal recycling network.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <StatCard 
-                  title="Waste Diverted"
-                  value="12,450 kg"
-                  subtitle="from the local landfill"
-                  icon={<Globe className="w-8 h-8" />}
-                  highlight={true}
-                />
-                <StatCard 
-                  title="Active Societies"
-                  value="342"
-                  subtitle="registered communities"
-                  icon={<Users className="w-8 h-8" />}
-                  highlight={false}
-                />
-                <StatCard 
-                  title="Green Credits Generated"
-                  value="85,200"
-                  subtitle="awarded to citizens"
-                  icon={<Zap className="w-8 h-8" />}
-                  highlight={true}
-                />
-            </div>
-        </div>
-      </section>
-
-      {/* How it Works / Flows */}
-      <section className="py-20 px-6 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-4">How RecycAI Works</h2>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto">A seamless digital flow connecting households to authorized kabadiwalas.</p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
-            {[
-              { step: 1, title: 'Identify', text: 'Separate your recyclable waste' },
-              { step: 2, title: 'Request', text: 'Schedule a pickup on the portal' },
-              { step: 3, title: 'Collect', text: 'Authorized kabadiwala arrives' },
-              { step: 4, title: 'Earn', text: 'Receive verified Green Credits' },
-              { step: 5, title: 'Compete', text: 'Climb the municipal leaderboard' }
-            ].map((item, index) => (
-              <React.Fragment key={index}>
-                <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group hover:bg-green-50 transition-colors">
-                  <div className="w-12 h-12 bg-green-600 text-white font-black text-xl rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:-translate-y-1 transition-transform">
-                    {item.step}
-                  </div>
-                  <h3 className="font-bold text-gray-800 text-lg mb-2">{item.title}</h3>
-                  <p className="text-sm text-gray-500 font-medium">{item.text}</p>
-                </div>
-                {index < 4 && (
-                  <div className="hidden md:flex justify-center text-green-300">
-                    <ArrowRight className="w-8 h-8" />
-                  </div>
-                )}
-                {index < 4 && (
-                  <div className="md:hidden flex justify-center text-green-300 py-2">
-                    <ArrowDown className="w-6 h-6" />
-                  </div>
-                )}
-              </React.Fragment>
-            ))}
           </div>
         </div>
       </section>
@@ -251,6 +141,167 @@ const HomePage = ({ onNavigate }) => {
           </div>
         </div>
       </section>
+
+      {/* Rewards & Prizes Section */}
+      <section className="py-24 px-6 bg-gradient-to-br from-green-900 to-green-950 text-white relative overflow-hidden">
+        {/* Abstract background blobs */}
+        <div className="absolute top-0 right-0 w-96 h-96 bg-green-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+        <div className="absolute bottom-0 left-0 w-96 h-96 bg-yellow-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+        
+        <div className="max-w-7xl mx-auto relative z-10">
+          <div className="text-center mb-16">
+            <div className="inline-block p-3 bg-yellow-400/20 text-yellow-400 rounded-2xl mb-4 border border-yellow-400/30">
+              <Gift className="w-10 h-10" />
+            </div>
+            <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">Earn Credits <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 to-yellow-500">& Win Exciting Prizes</span></h2>
+            <p className="text-xl text-green-200 max-w-2xl mx-auto font-medium">Recycling is rewarding! Accumulate Green Credits to climb the leaderboard and unlock municipal rewards.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center sm:text-left">
+            <div className="bg-white/10 backdrop-blur-md rounded-[2rem] p-8 border border-white/10 hover:bg-white/15 transition-all">
+              <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-6 mx-auto sm:mx-0">
+                <Medal className="w-8 h-8 text-yellow-400" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 text-white">Monthly Top 3</h3>
+              <p className="text-green-200 leading-relaxed font-medium mb-6">Societies ranking in the top 3 spots of the leaderboard each month receive exclusive municipal recognition and grand prizes.</p>
+              <ul className="text-sm font-bold text-yellow-300 space-y-2">
+                <li className="flex items-center justify-center sm:justify-start"> <span className="w-2 h-2 rounded-full bg-yellow-400 mr-2"></span> Trophies & Certificates </li>
+                <li className="flex items-center justify-center sm:justify-start"> <span className="w-2 h-2 rounded-full bg-yellow-400 mr-2"></span> Community Fund Bonuses </li>
+              </ul>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-md rounded-[2rem] p-8 border border-white/10 hover:bg-white/15 transition-all md:scale-105 shadow-2xl relative z-20">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-yellow-400 text-yellow-900 text-xs font-black uppercase tracking-widest py-1 px-4 rounded-full">Most Popular</div>
+              <div className="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl flex items-center justify-center mb-6 mx-auto sm:mx-0 shadow-lg shadow-yellow-500/30">
+                <Zap className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 text-white">Credit Milestones</h3>
+              <p className="text-green-200 leading-relaxed font-medium mb-6">Unlock instant rewards when your society reaches universal credit tiers across the year.</p>
+              <ul className="text-sm font-medium text-white/80 space-y-3 bg-black/20 p-4 rounded-xl">
+                 <li className="flex justify-between items-center"><span className="text-white">♻️ 5,000 Credits:</span> <span className="text-green-300 font-bold">Reusable Tote Bags</span></li>
+                 <li className="flex justify-between items-center"><span className="text-white">🌱 15,000 Credits:</span> <span className="text-green-300 font-bold">Composter Kits</span></li>
+                 <li className="flex justify-between items-center"><span className="text-white">🌍 50,000 Credits:</span> <span className="text-green-300 font-bold">Property Tax Rebates</span></li>
+              </ul>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-md rounded-[2rem] p-8 border border-white/10 hover:bg-white/15 transition-all">
+               <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-6 mx-auto sm:mx-0">
+                <Users className="w-8 h-8 text-emerald-400" />
+              </div>
+              <h3 className="text-2xl font-bold mb-3 text-white">Community Events</h3>
+              <p className="text-green-200 leading-relaxed font-medium mb-6">Host sponsored clean-up drives. Earn bonus Green Credits for verified community-driven recycling events in your area.</p>
+              <button onClick={() => onNavigate('leaderboard')} className="w-full mt-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-3 px-4 rounded-xl transition-all">
+                Check Rankings
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* About Recycling Section (RRR) */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-4">The 3 R's of Sustainability</h2>
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto">Our government portal encourages every citizen to follow these core principles.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <InfoCard 
+              icon={<Trash2 className="w-8 h-8" />}
+              title="Reduce"
+              description="Minimize waste generation by making smart purchasing decisions and avoiding single-use plastics."
+              colorClass="bg-red-50"
+            />
+            <InfoCard 
+              icon={<RefreshCw className="w-8 h-8" />}
+              title="Reuse"
+              description="Find new purposes for old items. Donate, repair, or upcycle instead of throwing away."
+              colorClass="bg-blue-50"
+            />
+            <InfoCard 
+              icon={<Recycle className="w-8 h-8" />}
+              title="Recycle"
+              description="Separate your waste so valuable materials can be processed and turned into new products."
+              colorClass="bg-green-50"
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Environmental Impact Stats */}
+      <section className="py-20 px-6 bg-green-50 border-y border-green-100 relative">
+        <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+                <h2 className="text-3xl md:text-5xl font-black text-green-900 mb-4">Citywide Impact</h2>
+                <p className="text-xl text-green-700 max-w-2xl mx-auto">Real-time statistics from our municipal recycling network.</p>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <StatCard 
+                  title="Waste Diverted"
+                  value="12,450 kg"
+                  subtitle="from the local landfill"
+                  icon={<Globe className="w-8 h-8" />}
+                  highlight={true}
+                />
+                <StatCard 
+                  title="Active Societies"
+                  value="342"
+                  subtitle="registered communities"
+                  icon={<Users className="w-8 h-8" />}
+                  highlight={false}
+                />
+                <StatCard 
+                  title="Green Credits Generated"
+                  value="85,200"
+                  subtitle="awarded to citizens"
+                  icon={<Zap className="w-8 h-8" />}
+                  highlight={true}
+                />
+            </div>
+        </div>
+      </section>
+
+      {/* How it Works / Flows */}
+      <section className="py-20 px-6 bg-white">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-4">How RecycAI Works</h2>
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto">A seamless digital flow connecting households to authorized kabadiwalas.</p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
+            {[
+              { step: 1, title: 'Identify', text: 'Separate your recyclable waste' },
+              { step: 2, title: 'Request', text: 'Schedule a pickup on the portal' },
+              { step: 3, title: 'Collect', text: 'Authorized kabadiwala arrives' },
+              { step: 4, title: 'Earn', text: 'Receive verified Green Credits' },
+              { step: 5, title: 'Compete', text: 'Climb the municipal leaderboard' }
+            ].map((item, index) => (
+              <React.Fragment key={index}>
+                <div className="flex flex-col items-center text-center p-6 bg-gray-50 rounded-2xl border border-gray-100 relative group hover:bg-green-50 transition-colors">
+                  <div className="w-12 h-12 bg-green-600 text-white font-black text-xl rounded-full flex items-center justify-center mb-4 shadow-lg group-hover:-translate-y-1 transition-transform">
+                    {item.step}
+                  </div>
+                  <h3 className="font-bold text-gray-800 text-lg mb-2">{item.title}</h3>
+                  <p className="text-sm text-gray-500 font-medium">{item.text}</p>
+                </div>
+                {index < 4 && (
+                  <div className="hidden md:flex justify-center text-green-300">
+                    <ArrowRight className="w-8 h-8" />
+                  </div>
+                )}
+                {index < 4 && (
+                  <div className="md:hidden flex justify-center text-green-300 py-2">
+                    <ArrowDown className="w-6 h-6" />
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
 
       {/* Optional Panels: Tips & Timelines */}
       <section className="py-20 px-6 bg-gray-900 text-white">
