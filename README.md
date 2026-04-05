@@ -1,4 +1,4 @@
-# RecycAI ♻️  
+# EcoLoop ♻️  
 **Competitive Recycling Platform with AI Assistance**
 
 RecycAI is a platform designed to encourage responsible waste management through **pickup logistics, gamified recycling credits, and optional AI-based waste detection**.
