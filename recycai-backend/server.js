@@ -59,14 +59,14 @@ app.post('/pickup/request', async (req, res) => {
       return res.status(400).json({ error: "societyId and wasteType are required." });
     }
 
-    // Randomly assign to a Kabadiwala to ensure distribution
-    const kabadiwalasSnapshot = await db.collection('kabadiwalas').get();
+    // Randomly assign to a Recycling Collector to ensure distribution
+    const collectorsSnapshot = await db.collection('collectors').get();
     let assignedCollectorId = 'UNASSIGNED';
     let assignedCollectorName = 'Unassigned Collector';
 
-    if (!kabadiwalasSnapshot.empty) {
-      const kabadiwalas = kabadiwalasSnapshot.docs;
-      const randomDoc = kabadiwalas[Math.floor(Math.random() * kabadiwalas.length)];
+    if (!collectorsSnapshot.empty) {
+      const recycling collectors = collectorsSnapshot.docs;
+      const randomDoc = recycling collectors[Math.floor(Math.random() * recycling collectors.length)];
       assignedCollectorId = randomDoc.id;
       assignedCollectorName = randomDoc.data().name;
     }
@@ -94,7 +94,7 @@ app.post('/pickup/request', async (req, res) => {
 
 /**
  * 3. POST /pickup/confirm
- * Kabadiwala confirms pickup, updates weight, and calculates credits
+ * Recycling Collector confirms pickup, updates weight, and calculates credits
  */
 app.post('/pickup/confirm', async (req, res) => {
   try {
@@ -143,7 +143,7 @@ app.post('/pickup/confirm', async (req, res) => {
 
 /**
  * 4. GET /pickups
- * Get all pickups (for Kabadiwala dashboard). Can be filtered by collectorId.
+ * Get all pickups (for Recycling Collector dashboard). Can be filtered by collectorId.
  */
 app.get('/pickups', async (req, res) => {
   try {

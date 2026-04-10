@@ -21,7 +21,7 @@ const societyNames = [
   'Elm Street Society', 'Ashwood Courts', 'Chestnut Hill', 'Walnut Manor'
 ];
 
-const kabadiwalaNames = [
+const collectorNames = [
   'Amit Patel', 'Rajesh Gupta', 'Vikram Singh', 'Sanjay Kumar', 
   'Arun Sharma', 'Anil Verma', 'Sunil Yadav', 'Manoj Tiwari',
   'Prakash Joshi', 'Ravi Desai'
@@ -32,21 +32,21 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 async function seed() {
   console.log("Starting data generation...");
 
-  // 1. Create 3 Kabadiwala accounts (reduced from 10)
-  const kabadiwalas = [];
+  // 1. Create 3 Recycling Collector accounts (reduced from 10)
+  const recycling collectors = [];
   for (let i = 0; i < 3; i++) {
     // Offset by 4 to avoid overwriting COLLECTOR-01 to COLLECTOR-04
     const idNum = String(i + 5).padStart(2, '0');
-    const kRef = db.collection('kabadiwalas').doc(`COLLECTOR-${idNum}`);
+    const kRef = db.collection('collectors').doc(`COLLECTOR-${idNum}`);
     const kData = {
       id: kRef.id,
-      name: kabadiwalaNames[i],
+      name: collectorNames[i],
       phone: `987654321${i}`,
       createdAt: admin.firestore.FieldValue.serverTimestamp()
     };
     await kRef.set(kData);
-    kabadiwalas.push(kData);
-    console.log(`Created Kabadiwala: ${kData.name} (${kData.id})`);
+    recycling collectors.push(kData);
+    console.log(`Created Recycling Collector: ${kData.name} (${kData.id})`);
   }
 
   // 2. Create 5 Societes (reduced from 20)
@@ -105,8 +105,8 @@ async function seed() {
         createdAt: admin.firestore.Timestamp.fromDate(pastDate)
       };
       
-      // Always assign a collector to ensure fair distribution across Kabadiwalas
-      const randomCollector = kabadiwalas[Math.floor(Math.random() * kabadiwalas.length)];
+      // Always assign a collector to ensure fair distribution across Recycling Collectors
+      const randomCollector = recycling collectors[Math.floor(Math.random() * recycling collectors.length)];
       pData.collectorId = randomCollector.id;
       pData.collectorName = randomCollector.name;
       

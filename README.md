@@ -3,7 +3,7 @@
 
 EcoLoop is a fully integrated platform designed to encourage responsible waste management through **streamlined pickup logistics and gamified recycling credits**. 
 
-The system bridges the gap between waste generators (households, housing societies, organizations) and waste collectors (kabadiwalas), enabling clear communication, tracked recycling, and community-driven environmental impact.
+The system bridges the gap between waste generators (households, housing societies, organizations) and waste collectors (recycling collectors), enabling clear communication, tracked recycling, and community-driven environmental impact.
 
 By making recycling **simple, engaging, and measurable**, EcoLoop promotes the core principles of **Reduce, Reuse, and Recycle (RRR)**.
 
@@ -16,7 +16,7 @@ Waste mismanagement remains a pressing environmental issue. Despite good intenti
 - Lack of localized incentives for responsible waste disposal
 - Fragmented and disconnected waste collection networks
 
-Although informal collectors (kabadiwalas) are the backbone of local recycling, they lack digital tools to efficiently manage pickups and connect directly with households at scale.
+Although informal collectors (recycling collectors) are the backbone of local recycling, they lack digital tools to efficiently manage pickups and connect directly with households at scale.
 
 ---
 
@@ -36,7 +36,7 @@ Key benefits of the system:
 
 ### 1. Society & Collector Portals
 - **Society Dashboard**: Register your housing society, track lifetime pickups, and request new waste collections (Plastic, Metal, Paper, etc.).
-- **Kabadiwala Panel**: A dedicated interface for collectors to view pending requests, confirm pickups, and record actual waste weights.
+- **Recycling Collector Panel**: A dedicated interface for collectors to view pending requests, confirm pickups, and record actual waste weights.
 
 ### 2. Green Credit System
 Every confirmed pickup automatically calculates and awards credits based on the waste type and weight. 
@@ -55,7 +55,7 @@ Societies accumulate credits and compete on a citywide leaderboard, unlocking mu
 
 1. **Request Pickup**: Society requests a waste pickup via the dashboard.
 2. **Assign Collector**: System assigns the request to the regional collection pool.
-3. **Collect & Confirm**: Kabadiwala arrives, collects the waste, and inputs the actual weight on their portal.
+3. **Collect & Confirm**: Recycling Collector arrives, collects the waste, and inputs the actual weight on their portal.
 4. **Reward**: Green Credits are calculated and instantly awarded to the society.
 5. **Rank**: The society climbs the citywide leaderboard.
 

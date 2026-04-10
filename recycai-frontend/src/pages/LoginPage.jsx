@@ -51,15 +51,15 @@ const LoginPage = ({ onNavigate, onLogin }) => {
               </button>
               <button
                 type="button"
-                onClick={() => setRole('kabadiwala')}
+                onClick={() => setRole('collector')}
                 className={`py-4 rounded-2xl border-2 transition-all flex flex-col items-center space-y-2 ${
-                  role === 'kabadiwala' 
+                  role === 'collector' 
                   ? 'border-green-600 bg-green-50/50 text-green-700 shadow-sm' 
                   : 'border-gray-50 bg-gray-50/50 text-gray-400'
                 }`}
               >
                 <Truck className="w-5 h-5" />
-                <span className="text-[10px] font-black uppercase tracking-widest">Kabadiwala</span>
+                <span className="text-[10px] font-black uppercase tracking-widest">Recycling Collector</span>
               </button>
             </div>
           </div>

@@ -34,7 +34,7 @@ const PickupCard = ({
             <Package className="w-5 h-5 text-green-600" />
             <h3 className="text-lg font-bold text-gray-800 capitalize">{pickup.wasteType || pickup.type}</h3>
           </div>
-          {userRole === 'kabadiwala' && pickup.societyName && (
+          {userRole === 'collector' && pickup.societyName && (
             <p className="text-sm font-semibold text-gray-600 mt-1">{pickup.societyName}</p>
           )}
         </div>
@@ -67,7 +67,7 @@ const PickupCard = ({
         )}
       </div>
 
-      {userRole === 'kabadiwala' && pickup.status !== 'completed' && (
+      {userRole === 'collector' && pickup.status !== 'completed' && (
         <div className="border-t border-gray-100 pt-4 mt-4">
           {pickup.status === 'pending' && (
             <button 

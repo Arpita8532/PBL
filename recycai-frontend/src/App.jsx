@@ -3,7 +3,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import SocietyDashboard from './pages/SocietyDashboard';
-import KabadiwalaDashboard from './pages/KabadiwalaDashboard';
+import CollectorDashboard from './pages/CollectorDashboard';
 import RequestPickup from './pages/RequestPickup';
 import Leaderboard from './pages/Leaderboard';
 // import KnowYourWaste from './pages/KnowYourWaste';
@@ -62,10 +62,10 @@ function App() {
         }
       } else {
         switch (currentPage) {
-          case 'dashboard': return <KabadiwalaDashboard user={user} />;
+          case 'dashboard': return <CollectorDashboard user={user} />;
           case 'leaderboard': return <Leaderboard onBack={() => navigate('dashboard')} />;
 // case 'know-waste': return <KnowYourWaste onNavigate={navigate} onBack={() => navigate('dashboard')} />;
-          default: return <KabadiwalaDashboard user={user} />;
+          default: return <CollectorDashboard user={user} />;
         }
       }
     }

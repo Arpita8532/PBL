@@ -21,22 +21,22 @@
 - **Actual**: TBD
 - **Status**: TBD
 
-## [TC04] Kabadiwala Login
-- **Objective**: Verify kabadiwala login.
+## [TC04] Recycling Collector Login
+- **Objective**: Verify recycling collector login.
 - **Input**: Authorized Email, Password.
-- **Expected**: Successful login, redirected to kabadiwala dashboard.
+- **Expected**: Successful login, redirected to recycling collector dashboard.
 - **Actual**: TBD
 - **Status**: TBD
 
-## [TC05] Accept Pickup (Kabadiwala)
-- **Objective**: Kabadiwala accepts an unassigned pickup.
+## [TC05] Accept Pickup (Recycling Collector)
+- **Objective**: Recycling Collector accepts an unassigned pickup.
 - **Action**: Click "Accept" on a pending pickup.
-- **Expected**: Order status changes to "Accepted", assigned to this kabadiwala.
+- **Expected**: Order status changes to "Accepted", assigned to this recycling collector.
 - **Actual**: TBD
 - **Status**: TBD
 
-## [TC06] Complete Pickup (Kabadiwala)
-- **Objective**: Kabadiwala completes an accepted pickup.
+## [TC06] Complete Pickup (Recycling Collector)
+- **Objective**: Recycling Collector completes an accepted pickup.
 - **Action**: Click "Done" on an accepted pickup.
 - **Expected**: Order status changes to "Completed", society receives credits.
 - **Actual**: TBD

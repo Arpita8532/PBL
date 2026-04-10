@@ -7,7 +7,7 @@ import logo from '../assets/logo.png';
 
 const POLL_INTERVAL = 10000;
 
-const KabadiwalaDashboard = ({ user }) => {
+const CollectorDashboard = ({ user }) => {
   const [allPickups, setAllPickups] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -195,7 +195,7 @@ const KabadiwalaDashboard = ({ user }) => {
             <PickupCard 
               key={pickup.id || pickup._id}
               pickup={pickup}
-              userRole="kabadiwala"
+              userRole="recycling collector"
               onAccept={handleAccept}
               onConfirm={handleConfirm}
               weightInput={acceptedPickupId === (pickup.id || pickup._id) ? weightInput : ''}
@@ -216,4 +216,4 @@ const KabadiwalaDashboard = ({ user }) => {
   );
 };
 
-export default KabadiwalaDashboard;
+export default CollectorDashboard;

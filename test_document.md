@@ -3,8 +3,8 @@
 ## 1. Requirement Analysis
 
 ### Functional Requirements
-- **Authentication**: Users (Societies and Kabadiwalas) must be able to securely login and register (if applicable).
-- **Pickup Management**: Societies can request recycling pickups. Kabadiwalas can view, accept, and mark pickups as completed.
+- **Authentication**: Users (Societies and Recycling Collectors) must be able to securely login and register (if applicable).
+- **Pickup Management**: Societies can request recycling pickups. Recycling Collectors can view, accept, and mark pickups as completed.
 - **Scoring System**: Credits must be automatically calculated based on waste type and weight after pickup completion.
 - **Leaderboard**: Real-time ranking of societies based on total green credits earned.
 - **Waste Detection**: AI-powered identification of waste types (Note: Feature preview currently available).
@@ -12,7 +12,7 @@
 ### Non-Functional Requirements
 - **Performance**: High responsiveness for dashboard data loading.
 - **Usability**: Clean, mobile-friendly interface with consistent branding.
-- **Security**: Role-based access control for Society and Kabadiwala views.
+- **Security**: Role-based access control for Society and Recycling Collector views.
 
 ---
 

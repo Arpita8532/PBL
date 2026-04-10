@@ -394,14 +394,14 @@ const HomePage = ({ onNavigate }) => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-4">How EcoLoop Works</h2>
-            <p className="text-xl text-gray-500 max-w-2xl mx-auto">A seamless digital flow connecting households to authorized kabadiwalas.</p>
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto">A seamless digital flow connecting households to authorized recycling collectors.</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-center">
             {[
               { step: 1, title: 'Identify', text: 'Separate your recyclable waste' },
               { step: 2, title: 'Request', text: 'Schedule a pickup on the portal' },
-              { step: 3, title: 'Collect', text: 'Authorized kabadiwala arrives' },
+              { step: 3, title: 'Collect', text: 'Authorized recycling collector arrives' },
               { step: 4, title: 'Earn', text: 'Receive verified Green Credits' },
               { step: 5, title: 'Compete', text: 'Climb the municipal leaderboard' }
             ].map((item, index) => (

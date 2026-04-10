@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ArrowLeft, Award, Package } from 'lucide-react';
 import logo from '../assets/logo.png';
 
-const KabadiwalaPanel = ({ onBack }) => {
+const CollectorPanel = ({ onBack }) => {
   const [formData, setFormData] = useState({ pickupId: '', weight: '' });
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
@@ -93,4 +93,4 @@ const KabadiwalaPanel = ({ onBack }) => {
   );
 };
 
-export default KabadiwalaPanel;
+export default CollectorPanel;

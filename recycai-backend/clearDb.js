@@ -2,7 +2,7 @@ const { db, admin } = require('./firebase');
 
 async function clearDB() {
   console.log("Clearing existing data...");
-  const collections = ['societies', 'pickups', 'kabadiwalas'];
+  const collections = ['societies', 'pickups', 'collectors'];
   
   for (const collection of collections) {
     const snapshot = await db.collection(collection).get();

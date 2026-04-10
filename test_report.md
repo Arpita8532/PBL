@@ -11,7 +11,7 @@
 - Validate UI consistency and responsiveness across different viewports
 - Ensure frontend-to-backend data integration is reliable
 - Confirm authentication, form validation, and error handling
-- Stress test multi-user scenarios (Society + Kabadiwala roles)
+- Stress test multi-user scenarios (Society + Recycling Collector roles)
 
 ---
 
@@ -48,8 +48,8 @@
 | UT-01 | Load login page correctly | Navigate to /login | Login form renders | Login form visible with logo, role selector, fields | ✅ PASS |
 | UT-02 | Empty form validation | Click submit with no input | Browser validation error | "Please fill out this field" shown | ✅ PASS |
 | UT-03 | Society role login | Role: Society, ID: alpha-001, Pass: 1234 | Redirect to dashboard | Successfully redirected to Society Dashboard | ✅ PASS |
-| UT-04 | Kabadiwala role login | Role: Kabadiwala, Code: COLLECTOR-05, Pass: test | Redirect to collector dashboard | Redirected to Kabadiwala Dashboard | ✅ PASS |
-| UT-05 | Role toggle UI | Click between Society/Kabadiwala | Active button highlighted, label changes | Correct active state and placeholder change | ✅ PASS |
+| UT-04 | Recycling Collector role login | Role: Recycling Collector, Code: COLLECTOR-05, Pass: test | Redirect to collector dashboard | Redirected to Recycling Collector Dashboard | ✅ PASS |
+| UT-05 | Role toggle UI | Click between Society/Recycling Collector | Active button highlighted, label changes | Correct active state and placeholder change | ✅ PASS |
 
 ### Module: SignupPage
 | TC# | Test Case | Input | Expected Output | Actual Output | Status |
@@ -74,7 +74,7 @@
 |-----|-----------|----------|--------|--------|
 | IT-01 | Pickup request creation | POST /pickup/request → 201 | Pickup stored in Firestore | ✅ PASS |
 | IT-02 | Pickup list fetch (society) | GET /pickup/list | Returns pickups for the user | ✅ PASS |
-| IT-03 | Pickup list fetch (kabadiwala) | GET /pickups?collectorId=X | Returns collector-specific pickups | ✅ PASS |
+| IT-03 | Pickup list fetch (recycling collector) | GET /pickups?collectorId=X | Returns collector-specific pickups | ✅ PASS |
 | IT-04 | Leaderboard data | GET /leaderboard | Sorted list of societies with credits | ✅ PASS |
 | IT-05 | Real-time stats | GET /stats/citywide | Aggregated data from Firestore | ✅ PASS |
 | IT-06 | Pickup confirmation | POST /pickup/confirm | Credits updated in society + pickup marked completed | ✅ PASS |
@@ -87,7 +87,7 @@
 | TC# | Scenario | Steps | Result | Status |
 |-----|----------|-------|--------|--------|
 | ST-01 | Full society lifecycle | Register → Login → Request Pickup → View Dashboard | All steps completed without error | ✅ PASS |
-| ST-02 | Kabadiwala workflow | Login as collector → View pending pickups → Confirm pickup with weight | Credits awarded to society | ✅ PASS |
+| ST-02 | Recycling Collector workflow | Login as collector → View pending pickups → Confirm pickup with weight | Credits awarded to society | ✅ PASS |
 | ST-03 | Multi-user isolation | Login as Society A, then Society B | Each sees only their own pickups | ✅ PASS |
 | ST-04 | Leaderboard ranking | After completing pickups, check leaderboard | Societies ranked by total credits | ✅ PASS |
 | ST-05 | Logout and re-login | Logout → Login with saved credentials | Session cleared, re-login works | ✅ PASS |
@@ -104,7 +104,7 @@
 | UI-04 | Button hover effects | All CTAs | Proper hover transitions applied | ✅ PASS |
 | UI-05 | Form focus states | Login, Signup, Pickup forms | Green ring on focus, smooth animation | ✅ PASS |
 | UI-06 | Status badge colors | Pickup request table | Pending=amber, Completed=green, Accepted=blue | ✅ PASS |
-| UI-07 | Live sync indicator | Society & Kabadiwala dashboards | "Live" badge with pulse animation shown | ✅ PASS |
+| UI-07 | Live sync indicator | Society & Recycling Collector dashboards | "Live" badge with pulse animation shown | ✅ PASS |
 | UI-08 | Error messages | Form errors, API failures | Red styled error messages displayed | ✅ PASS |
 
 ---
@@ -118,7 +118,7 @@
 | SV-03 | Phone input type | Text in phone field | Browser restricts to tel type | Correct input type enforced | ✅ PASS |
 | SV-04 | Session persistence | Close tab, reopen | User stays logged in | localStorage session restored | ✅ PASS |
 | SV-05 | Session isolation | Two different localStorage entries | Each user gets separate experience | Separate sessions work correctly | ✅ PASS |
-| SV-06 | Negative weight input | Weight = -5 in kabadiwala confirm | Rejected | `parseFloat(weight) <= 0` guard prevents it | ✅ PASS |
+| SV-06 | Negative weight input | Weight = -5 in recycling collector confirm | Rejected | `parseFloat(weight) <= 0` guard prevents it | ✅ PASS |
 
 ---
 
@@ -130,7 +130,7 @@
 | B2 | SignupPage.jsx | 🔴 Critical | `axios` used without import, registration broke | ✅ Fixed |
 | B3 | HomePage.jsx | 🟡 Medium | Hero section didn't fill full viewport | ✅ Fixed |
 | B4 | App.jsx | 🟢 Minor | Logo too small in Navbar | ✅ Fixed |
-| B5 | KabadiwalaDashboard | 🟢 Minor | Newly assigned pickups may not appear immediately for a specific collector (random assignment may not match logged-in user) | ⚠️ Known Limitation |
+| B5 | CollectorDashboard | 🟢 Minor | Newly assigned pickups may not appear immediately for a specific collector (random assignment may not match logged-in user) | ⚠️ Known Limitation |
 
 ---
 
@@ -157,8 +157,8 @@
 ### Pickup Request Sent Confirmation
 ![Pickup Confirmation](file:///C:/Users/kanis/.gemini/antigravity/brain/b310ce4e-a4c2-4b1c-a7d0-ca9ba8804140/request_sent_confirmation_1774072000791.png)
 
-### Kabadiwala Dashboard
-![Kabadiwala Dashboard](file:///C:/Users/kanis/.gemini/antigravity/brain/b310ce4e-a4c2-4b1c-a7d0-ca9ba8804140/kabadiwala_dashboard_empty_1774072060170.png)
+### Recycling Collector Dashboard
+![Recycling Collector Dashboard](file:///C:/Users/kanis/.gemini/antigravity/brain/b310ce4e-a4c2-4b1c-a7d0-ca9ba8804140/collector_dashboard_empty_1774072060170.png)
 
 ### Society Registration Form
 ![Signup Form](file:///C:/Users/kanis/.gemini/antigravity/brain/b310ce4e-a4c2-4b1c-a7d0-ca9ba8804140/signup_form_1774072217168.png)
@@ -192,8 +192,8 @@ The EcoLoop application has been tested systematically across all functional mod
 - Real-time data polling on both dashboards (10-second interval)
 - Live citywide statistics on homepage (30-second auto-refresh)
 - Responsive UI consistent across desktop and mobile
-- Clear separation of user roles (Society vs. Kabadiwala)
+- Clear separation of user roles (Society vs. Recycling Collector)
 - Proper form validation and error messaging
 
 **Known Limitation:**
-- Pickup request assignment to Kabadiwalas is random; the collector assigned may not be the currently logged-in Kabadiwala. This is by design (load balancing) but reduces predictability in demos.
+- Pickup request assignment to Recycling Collectors is random; the collector assigned may not be the currently logged-in Recycling Collector. This is by design (load balancing) but reduces predictability in demos.
