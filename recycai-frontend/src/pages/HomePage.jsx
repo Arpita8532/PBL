@@ -387,38 +387,7 @@ const HomePage = ({ onNavigate }) => {
         </div>
       </section>
 
-      {/* Environmental Impact Stats */}
-      <section className="py-20 px-6 bg-green-50 border-y border-green-100 relative">
-        <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-                <h2 className="text-3xl md:text-5xl font-black text-green-900 mb-4">Citywide Impact</h2>
-                <p className="text-xl text-green-700 max-w-2xl mx-auto">Real-time statistics from our municipal recycling network.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <StatCard 
-                  title="Waste Diverted"
-                  value="12,450 kg"
-                  subtitle="from the local landfill"
-                  icon={<Globe className="w-8 h-8" />}
-                  highlight={true}
-                />
-                <StatCard 
-                  title="Active Societies"
-                  value="342"
-                  subtitle="registered communities"
-                  icon={<Users className="w-8 h-8" />}
-                  highlight={false}
-                />
-                <StatCard 
-                  title="Green Credits Generated"
-                  value="85,200"
-                  subtitle="awarded to citizens"
-                  icon={<Zap className="w-8 h-8" />}
-                  highlight={true}
-                />
-            </div>
-        </div>
-      </section>
+
 
       {/* How it Works / Flows */}
       <section className="py-20 px-6 bg-white">

@@ -1,224 +1,113 @@
 # EcoLoop ♻️  
-**Competitive Recycling Platform with AI Assistance**
+**Competitive Municipal Recycling Platform**
 
-RecycAI is a platform designed to encourage responsible waste management through **pickup logistics, gamified recycling credits, and optional AI-based waste detection**.
+EcoLoop is a fully integrated platform designed to encourage responsible waste management through **streamlined pickup logistics and gamified recycling credits**. 
 
-The system allows individuals, housing societies, and organizations to request recyclable waste pickups from collectors (kabadiwalas), earn **Green Credits** based on the amount of waste recycled, and compete on public leaderboards.
+The system bridges the gap between waste generators (households, housing societies, organizations) and waste collectors (kabadiwalas), enabling clear communication, tracked recycling, and community-driven environmental impact.
 
-The goal is to make recycling **simple, engaging, and measurable** while promoting the principles of **Reduce, Reuse, Recycle (RRR)**.
-
----
-
-# Problem Statement
-
-Waste mismanagement is a major environmental issue. Many recyclable materials end up in landfills due to:
-
-- Lack of awareness about recyclability
-- Difficulty in finding nearby recycling services
-- Lack of incentives for responsible waste disposal
-- Fragmented waste collection networks
-
-Although informal collectors (kabadiwalas) play a significant role in recycling, they are not digitally connected to households and organizations.
+By making recycling **simple, engaging, and measurable**, EcoLoop promotes the core principles of **Reduce, Reuse, and Recycle (RRR)**.
 
 ---
 
-# Solution
+## 🎯 Problem Statement
 
-RecycAI connects **waste generators and collectors** through a digital platform and introduces **Green Credits** to incentivize recycling.
+Waste mismanagement remains a pressing environmental issue. Despite good intentions, recyclable materials often end up in landfills due to:
+- Difficulty in finding local, authorized recycling services
+- Lack of localized incentives for responsible waste disposal
+- Fragmented and disconnected waste collection networks
 
-Key ideas behind the system:
-
-- Make waste pickup easy
-- Encourage recycling through competition
-- Provide optional AI assistance for waste identification
-- Track environmental impact using measurable metrics
+Although informal collectors (kabadiwalas) are the backbone of local recycling, they lack digital tools to efficiently manage pickups and connect directly with households at scale.
 
 ---
 
-# Core Features
+## 💡 Our Solution
 
-### 1. Pickup Request System
-Users or societies can request recyclable waste pickup.
+EcoLoop connects **waste generators and collectors** through a digital portal and introduces **Green Credits** to reward and gamify recycling.
 
-Collectors (kabadiwalas) confirm the pickup and record the collected waste weight.
+Key benefits of the system:
+- **Frictionless Pickups**: Societies can schedule waste pickups in just a few clicks.
+- **Incentivized Action**: Earn Green Credits for every kilogram of waste recycled.
+- **Community Competition**: Public leaderboards track and rank societies based on their recycling contributions.
+- **Data-Driven Impact**: Municipal dashboards provide real-time metrics on waste diverted from landfills.
 
 ---
+
+## ✨ Core Features
+
+### 1. Society & Collector Portals
+- **Society Dashboard**: Register your housing society, track lifetime pickups, and request new waste collections (Plastic, Metal, Paper, etc.).
+- **Kabadiwala Panel**: A dedicated interface for collectors to view pending requests, confirm pickups, and record actual waste weights.
 
 ### 2. Green Credit System
-Each pickup generates credits based on the waste type and quantity.
-
+Every confirmed pickup automatically calculates and awards credits based on the waste type and weight. 
 Example scoring:
+- **Plastic**: 8 credits / kg
+- **Paper**: 5 credits / kg
+- **Metal**: 15 credits / kg
+- **E-Waste**: 20 credits / kg
 
-| Waste Type | Points per kg |
-|-------------|--------------|
-| Plastic | 8 |
-| Paper | 5 |
-| Metal | 15 |
-| E-Waste | 20 |
-
-Credits accumulate for societies and organizations.
+### 3. Live Leaderboards
+Societies accumulate credits and compete on a citywide leaderboard, unlocking municipal rewards, recognition, and fostering sustainable habits through friendly competition.
 
 ---
 
-### 3. Competitive Leaderboards
-Societies and organizations compete for the highest recycling scores.
+## 🔄 System Workflow
 
-Leaderboards promote sustainable behavior through community competition.
-
-Example:
-
-
-Top Recycling Societies
-
-Green Valley Society — 1200 credits
-
-Lakeview Apartments — 980 credits
-
-Sunrise Towers — 760 credits
-
+1. **Request Pickup**: Society requests a waste pickup via the dashboard.
+2. **Assign Collector**: System assigns the request to the regional collection pool.
+3. **Collect & Confirm**: Kabadiwala arrives, collects the waste, and inputs the actual weight on their portal.
+4. **Reward**: Green Credits are calculated and instantly awarded to the society.
+5. **Rank**: The society climbs the citywide leaderboard.
 
 ---
 
-### 4. Optional AI Waste Detection
-Users may scan waste items using an ML model.
-
-The system can identify the waste type and provide:
-
-- Decomposition timeline
-- Recycling suggestions
-- Environmental impact information
-
-Scanning is optional and the platform works without it.
-
----
-
-# System Workflow
-
-
-User / Society generates recyclable waste
-│
-▼
-(Optional) Scan waste using AI model
-│
-▼
-Request waste pickup
-│
-▼
-Kabadiwala accepts pickup
-│
-▼
-Waste collected and weight recorded
-│
-▼
-Green credits calculated
-│
-▼
-Leaderboard updated
-
-
----
-
-# System Architecture
-
-         Frontend (Web / Mobile)
-                 │
-                 │
-                 ▼
-         Backend API Server
-         (Node.js + Express)
-                 │
-                 │
-                 ▼
-          PostgreSQL Database
-     (Societies, Pickups, Credits)
-Optional Module
-
-ML Waste Detection Service
-(Python + FastAPI)
-
-
----
-
-# Technology Stack
+## 🛠️ Technology Stack
 
 ### Frontend
-- React.js
-- Tailwind CSS
+- **React.js** (Vite)
+- **Tailwind CSS**
+- **Lucide Icons**
 
 ### Backend
-- Node.js
-- Express.js
+- **Node.js**
+- **Express.js**
 
 ### Database
-- PostgreSQL
-
-### Optional AI Module
-- Python
-- FastAPI
-- TensorFlow / PyTorch
-
-### Deployment (Recommended)
-- Frontend → Vercel
-- Backend → Render / Railway
-- Database → Supabase / Neon
+- **Firebase Firestore** (Real-time NoSQL database)
 
 ---
 
-# MVP Features
+## 📂 Project Structure
 
-The MVP focuses on demonstrating the core platform loop:
-
-- Society registration
-- Pickup request system
-- Pickup confirmation by collectors
-- Green credit calculation
-- Leaderboard competition
-- Optional AI waste detection
-
----
-
-# Project Structure
-
-
-recycai/
+```text
+PBL/
 │
-├── frontend/ # React application
-├── backend/ # Node.js API server
-│ ├── server.js
-│ ├── db.js
-│ └── routes
+├── recycai-frontend/       # React application (Vite)
+│   ├── src/
+│   │   ├── components/     # UI Components (Cards, Layouts)
+│   │   ├── pages/          # Dashboards, Login, Request pages
+│   │   └── assets/         # Images and icons
+│   └── index.html
 │
-├── ml-service/ # Optional waste detection model
+├── recycai-backend/        # Express API server
+│   ├── server.js           # Core API logic, routes, scoring
+│   ├── firebase.js         # Firebase Admin SDK initialization
+│   └── serviceAccountKey.json # Credentials (Ignored in Git)
 │
 └── README.md
-
-
----
-
-# Future Improvements
-
-Potential extensions beyond MVP include:
-
-- Real-time kabadiwala dispatch system
-- Blockchain-based credit verification
-- Corporate ESG dashboards
-- City-level sustainability competitions
-- Carbon footprint analytics
-- Integration with municipal recycling systems
+```
 
 ---
 
-# Environmental Impact
+## 🚀 Future Improvements
 
-If adopted at scale, the platform can:
-
-- Increase recycling participation
-- Reduce landfill waste
-- Digitally empower informal waste collectors
-- Promote community-level sustainability
+- Implementation of a real-time collector tracking map (GPS).
+- Extended municipal dashboards for city administration.
+- Blockchain-based verification for Green Credits.
+- Civic reward integrations for top-ranking societies.
+- SMS/WhatsApp notifications for pickup statuses.
 
 ---
 
-# License
-
-This project is developed as part of a **Project Based Learning (PBL)** initiative
+## 📄 License
+This project is developed as part of a **Project Based Learning (PBL)** initiative.

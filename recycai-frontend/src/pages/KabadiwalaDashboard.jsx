@@ -23,9 +23,7 @@ const KabadiwalaDashboard = ({ user }) => {
   const fetchPickups = useCallback(async (silent = false) => {
     if (!silent) setLoading(true);
     try {
-      const url = user?.identifier 
-        ? `http://localhost:5000/pickups?collectorId=${user.identifier}`
-        : 'http://localhost:5000/pickups';
+      const url = 'http://localhost:5000/pickups';
       const response = await axios.get(url);
       setAllPickups(response.data);
       setLastRefresh(new Date());
