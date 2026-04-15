@@ -75,16 +75,16 @@ function App() {
   return (
     <div className="min-h-screen bg-green-50 flex flex-col font-sans text-gray-700">
       {/* Navbar */}
-      <nav className="bg-white border-b border-green-200 px-6 py-3 sticky top-0 z-50 shadow-sm">
+      <nav className="bg-white/85 backdrop-blur-md border-b border-green-200/80 px-6 py-2 sticky top-0 z-50 shadow-sm transition-all">
         <div className="max-w-7xl mx-auto flex justify-between items-center">
           <button 
             onClick={() => navigate(user ? 'dashboard' : 'home')}
-            className="flex items-center space-x-1 text-green-800"
+            className="flex items-center space-x-2 text-green-800"
           >
-            <img src={logo} alt="EcoLoop Logo" className="h-14 md:h-16 w-auto" />
-            <div className="flex flex-col">
-              <span className="text-2xl font-black tracking-tightest leading-none">EcoLoop</span>
-              <span className="text-xs font-bold text-gray-400">Recycle. Earn. Lead.</span>
+            <img src={logo} alt="EcoLoop Logo" className="h-10 md:h-12 w-auto" />
+            <div className="flex flex-col items-start gap-0.5">
+              <span className="text-xl md:text-2xl font-black tracking-tightest leading-none">EcoLoop</span>
+              <span className="text-[10px] md:text-xs font-bold text-gray-500 uppercase tracking-wider">Recycle. Earn. Lead.</span>
             </div>
           </button>
           
