@@ -14,12 +14,21 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Scoring system for green credits
+// Scoring system for green credits (credits per kg) — matches README spec
 const SCORES = {
-  plastic: 8,
-  paper: 5,
-  metal: 15,
-  ewaste: 20
+  plastic:      8,
+  paper:        5,
+  metal:        15,
+  glass:        6,
+  ewaste:       20,
+  fabric:       7,
+  wood:         4,
+  food:         3,
+  rubber:       5,
+  batteries:    25,
+  chemicals:    35,
+  medical:      30,
+  construction: 3
 };
 
 /**
@@ -65,8 +74,8 @@ app.post('/pickup/request', async (req, res) => {
     let assignedCollectorName = 'Unassigned Collector';
 
     if (!collectorsSnapshot.empty) {
-      const recycling collectors = collectorsSnapshot.docs;
-      const randomDoc = recycling collectors[Math.floor(Math.random() * recycling collectors.length)];
+      const recyclingCollectors = collectorsSnapshot.docs;
+      const randomDoc = recyclingCollectors[Math.floor(Math.random() * recyclingCollectors.length)];
       assignedCollectorId = randomDoc.id;
       assignedCollectorName = randomDoc.data().name;
     }
@@ -296,6 +305,31 @@ const WASTE_INFO = {
     wasteType: 'Organic / Food Waste',
     decompositionTime: '1–6 months',
     recyclingSuggestion: 'Compost at home or use municipal composting services. Avoid mixing with dry recyclables.'
+  },
+  rubber: {
+    wasteType: 'Rubber',
+    decompositionTime: '50–80 years',
+    recyclingSuggestion: 'Old tyres and rubber items should be taken to designated rubber recycling points. Never burn rubber.'
+  },
+  batteries: {
+    wasteType: 'Batteries',
+    decompositionTime: '100 years+',
+    recyclingSuggestion: 'Return batteries to retail drop-off points or certified hazardous waste facilities. Never bin in regular waste.'
+  },
+  chemicals: {
+    wasteType: 'Hazardous / Chemical Waste',
+    decompositionTime: 'Varies (decades to centuries)',
+    recyclingSuggestion: 'Hand over to a licensed hazardous waste handler. Never pour chemicals down the drain or into soil.'
+  },
+  construction: {
+    wasteType: 'Construction & Demolition Debris',
+    decompositionTime: 'Varies (concrete 100+ years)',
+    recyclingSuggestion: 'Segregate concrete, bricks, and metals on-site. Use authorised C&D waste processors for disposal.'
+  },
+  medical: {
+    wasteType: 'Medical / Bio-hazard Waste',
+    decompositionTime: 'Varies (100+ years for plastics)',
+    recyclingSuggestion: 'Use red-bag/yellow-bag segregation per hospital waste rules. Never mix medical waste with regular recycling.'
   }
 };
 
@@ -350,14 +384,27 @@ app.post('/detect-waste', upload.single('image'), (req, res) => {
 
     // Map Python prediction to WASTE_INFO keys
     const classMapping = {
-      'plastic': 'plastic',
-      'paper': 'paper',
-      'metal': 'metal',
-      'glass': 'glass',
-      'fabric': 'fabric',
-      'wood': 'wood',
-      'food': 'food',
-      'foliage': 'food'
+      'plastic':      'plastic',
+      'paper':        'paper',
+      'cardboard':    'paper',
+      'metal':        'metal',
+      'glass':        'glass',
+      'fabric':       'fabric',
+      'textile':      'fabric',
+      'wood':         'wood',
+      'food':         'food',
+      'foliage':      'food',
+      'organic':      'food',
+      'rubber':       'rubber',
+      'tyre':         'rubber',
+      'battery':      'batteries',
+      'batteries':    'batteries',
+      'chemical':     'chemicals',
+      'hazardous':    'chemicals',
+      'construction': 'construction',
+      'debris':       'construction',
+      'ewaste':       'ewaste',
+      'electronic':   'ewaste'
     };
 
     let matchedKey = classMapping[predictedClass.toLowerCase()];
@@ -379,6 +426,101 @@ app.post('/detect-waste', upload.single('image'), (req, res) => {
   } catch (error) {
     console.error("Express Error:", error);
     res.status(500).json({ error: error.message });
+  }
+});
+
+// ── EcoBot: AI Chat via Ollama (local LLM, no API key needed) ──
+
+const ECOLOOP_SYSTEM_PROMPT = `
+You are EcoBot, the intelligent recycling assistant embedded inside EcoLoop —
+a smart municipal recycling platform used by housing societies in India.
+
+YOUR PERSONALITY:
+- Friendly, concise, and encouraging. Never preachy or lecture-y.
+- You speak like a knowledgeable friend, not a textbook.
+- Use "your society", "your pickup", "your credits" — make it personal.
+- Keep answers under 4 sentences unless the user asks for detail.
+- Occasionally use a single relevant emoji at the end of a message (not every message).
+
+YOUR KNOWLEDGE DOMAIN:
+1. Waste disposal rules — what goes in which category (plastic, metal, paper,
+   e-waste, glass, batteries, textiles, organic, medical, chemicals, rubber)
+2. Green Credits system — explain how credits are earned per kg per waste type:
+   Plastic=8, Paper=5, Metal=15, E-Waste=20, Glass=6, Batteries=25,
+   Textiles=7, Organic=3, Rubber=5, Medical=30, Chemicals=35
+3. Environmental impact — CO₂ savings, why recycling each material matters
+4. EcoLoop features — how to request a pickup, track history, read the leaderboard,
+   earn badges (First Step, Consistent, Green Champion, E-Warrior, Century Club)
+5. Indian recycling context — local kabadiwala system, municipal rules,
+   Swachh Bharat guidelines, common Indian household waste patterns
+
+STRICT RULES:
+- If asked something outside recycling, waste, environment, or EcoLoop features,
+  say: "I'm specialized in recycling and EcoLoop — ask me anything about that!"
+- Never make up credit values or statistics. Use only the values listed above.
+- Never give medical advice even if "medical waste" is mentioned.
+- If unsure, say "I'm not certain — I'd recommend checking with your local
+  municipal authority for that specific item."
+
+EXAMPLE GOOD RESPONSES:
+User: "Can I recycle a broken phone?"
+You: "Yes! Broken phones are e-waste and earn you 20 credits/kg — the highest
+standard rate. Just schedule an e-waste pickup from your dashboard. ♻️"
+
+User: "What's the point of recycling paper?"
+You: "Recycling 1 kg of paper saves 0.9 kg of CO₂ and reduces deforestation.
+Your society gets 5 credits/kg too — small weight adds up fast over a month."
+`;
+
+app.post('/api/chat', async (req, res) => {
+  const { messages } = req.body;
+
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  try {
+    const response = await fetch('http://localhost:11434/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'llama3.2',
+        stream: true,
+        messages: [
+          { role: 'system', content: ECOLOOP_SYSTEM_PROMPT },
+          ...(messages || [])
+        ]
+      })
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      res.write(`data: ${JSON.stringify({ error: `Ollama error: ${errText}` })}\n\n`);
+      res.end();
+      return;
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) { res.end(); break; }
+      const chunk = decoder.decode(value);
+      const lines = chunk.split('\n').filter(Boolean);
+      for (const line of lines) {
+        try {
+          const parsed = JSON.parse(line);
+          if (parsed.message?.content) {
+            res.write(`data: ${JSON.stringify({ token: parsed.message.content })}\n\n`);
+          }
+        } catch (_) { /* ignore parse errors on partial chunks */ }
+      }
+    }
+  } catch (err) {
+    console.error('EcoBot /api/chat error:', err.message);
+    res.write(`data: ${JSON.stringify({ error: 'Could not reach Ollama. Is it running on localhost:11434?' })}\n\n`);
+    res.end();
   }
 });
 

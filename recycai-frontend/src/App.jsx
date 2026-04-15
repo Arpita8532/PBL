@@ -9,6 +9,7 @@ import Leaderboard from './pages/Leaderboard';
 // import KnowYourWaste from './pages/KnowYourWaste';
 import { Leaf, LogOut, LayoutDashboard, BarChart3, Menu, X, Home, UserPlus, LogIn, Search } from 'lucide-react';
 import logo from './assets/logo.png';
+import EcoBot from './components/EcoBot';
 
 function App() {
   const [user, setUser] = useState(null);
@@ -222,6 +223,9 @@ function App() {
       <main className="flex-grow w-full">
         {renderPage()}
       </main>
+
+      {/* EcoBot floating chat widget — visible on all pages */}
+      <EcoBot />
 
       {/* Footer */}
       <footer className="bg-white border-t border-green-200 pt-12 pb-8 mt-auto">

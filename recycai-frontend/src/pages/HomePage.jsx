@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Leaf, Recycle, RefreshCw, Trash2, Users, Globe, Zap, ArrowDown, CheckCircle2, IndianRupee, Search, ScanLine, Clock, Lightbulb, Trophy, Gift, Medal } from 'lucide-react';
+import { ArrowRight, Leaf, Recycle, RefreshCw, Trash2, Users, Globe, Zap, ArrowDown, CheckCircle2, IndianRupee, Search, ScanLine, Clock, Lightbulb, Trophy, Gift, Medal, Award, BarChart3, CloudLightning } from 'lucide-react';
 import InfoCard from '../components/InfoCard';
 import StatCard from '../components/StatCard';
 import logo from '../assets/logo.png';
@@ -147,9 +147,9 @@ const HomePage = ({ onNavigate }) => {
           <div className="hero-pills flex flex-wrap justify-center gap-3 mb-10 text-sm">
             {[
               { icon: <Recycle className="w-4 h-4" />, text: 'Schedule Pickups' },
-              { icon: <Zap className="w-4 h-4" />, text: 'Earn Credits Instantly' },
+              { icon: <CloudLightning className="w-4 h-4" />, text: 'Track CO₂ Saved' },
               { icon: <Trophy className="w-4 h-4" />, text: 'Climb the Leaderboard' },
-              { icon: <Leaf className="w-4 h-4" />, text: 'Track Your Impact' },
+              { icon: <Award className="w-4 h-4" />, text: 'Unlock Badges' },
             ].map((f, i) => (
               <div key={i} className="flex items-center space-x-2 bg-white/10 px-4 py-2 rounded-xl border border-white/15">
                 <span className="text-green-300">{f.icon}</span>
@@ -300,6 +300,36 @@ const HomePage = ({ onNavigate }) => {
         </div>
       </section>
       */}
+
+      {/* Platform Features Highlight */}
+      <section className="py-20 px-6 bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-5xl font-black text-gray-800 mb-4">Powerful Digital Tools</h2>
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto">Track your environmental impact with precision and earn recognition.</p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <InfoCard 
+              icon={<BarChart3 className="w-8 h-8 text-blue-600" />}
+              title="Advanced Analytics"
+              description="Visualize your recycling volume over time with interactive line charts and composition donut graphs."
+              colorClass="bg-blue-50"
+            />
+            <InfoCard 
+              icon={<CloudLightning className="w-8 h-8 text-emerald-600" />}
+              title="Real CO₂ Tracking"
+              description="Calculate the exact kilograms of CO₂ emissions you've saved using standard EPA offset formulas."
+              colorClass="bg-emerald-50"
+            />
+            <InfoCard 
+              icon={<Award className="w-8 h-8 text-purple-600" />}
+              title="Gamified Badges"
+              description="Unlock achievements like 'Green Champion', 'Diverse Recycler', and 'E-Warrior' as you recycle."
+              colorClass="bg-purple-50"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Rewards & Prizes Section */}
       <section className="py-24 px-6 bg-gradient-to-br from-green-900 to-green-950 text-white relative overflow-hidden">

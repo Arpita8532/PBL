@@ -74,10 +74,19 @@ const RequestPickup = ({ user, onBack }) => {
                    onChange={(e) => setWasteType(e.target.value)}
                    className="w-full px-5 py-4 rounded-2xl border border-gray-200 bg-gray-50 text-gray-900 font-bold text-lg appearance-none focus:bg-white focus:ring-4 focus:ring-green-500/20 focus:border-green-600 outline-none transition-all cursor-pointer shadow-sm capitalize"
                 >
-                   <option value="plastic">Plastic</option>
-                   <option value="paper">Paper</option>
-                   <option value="metal">Metal</option>
-                   <option value="ewaste">E-Waste</option>
+                   <option value="plastic">♻️  Plastic  (8 credits/kg)</option>
+                   <option value="paper">📄  Paper / Cardboard  (5 credits/kg)</option>
+                   <option value="metal">🔩  Metal  (15 credits/kg)</option>
+                   <option value="glass">🫙  Glass  (6 credits/kg)</option>
+                   <option value="ewaste">💻  E-Waste  (20 credits/kg)</option>
+                   <option value="fabric">👕  Textiles / Fabric  (7 credits/kg)</option>
+                   <option value="wood">🪵  Wood / Furniture  (4 credits/kg)</option>
+                   <option value="food">🥬  Organic / Wet Waste  (3 credits/kg)</option>
+                   <option value="rubber">🔘  Rubber / Tyres  (5 credits/kg)</option>
+                   <option value="batteries">🔋  Batteries  (25 credits/kg)</option>
+                   <option value="chemicals">🧪  Oil / Chemicals  (35 credits/kg)</option>
+                   <option value="medical">🏥  Medical / Bio-Hazard  (30 credits/kg)</option>
+                   <option value="construction">🧱  Construction Debris  (3 credits/kg)</option>
                 </select>
                 <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none">
                    <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>

@@ -39,15 +39,18 @@ Key benefits of the system:
 - **Recycling Collector Panel**: A dedicated interface for collectors to view pending requests, confirm pickups, and record actual waste weights.
 
 ### 2. Green Credit System
-Every confirmed pickup automatically calculates and awards credits based on the waste type and weight. 
+Every confirmed pickup automatically calculates and awards credits based on exactly **13 different waste types** and their weights. 
 Example scoring:
 - **Plastic**: 8 credits / kg
 - **Paper**: 5 credits / kg
 - **Metal**: 15 credits / kg
-- **E-Waste**: 20 credits / kg
+- **Medical/Chemicals**: 30–35 credits / kg
 
-### 3. Live Leaderboards
-Societies accumulate credits and compete on a citywide leaderboard, unlocking municipal rewards, recognition, and fostering sustainable habits through friendly competition.
+### 3. Gamification & Gamified Badges
+Societies unlock achievements like "Green Champion", "E-Warrior", and "First Step" dynamically as their recycling history grows.
+
+### 4. Live Leaderboards & Analytics
+Societies accumulate credits and compete on a citywide leaderboard. Dashboards include interactive **Recharts infographics** (monthly recycling trends and waste composition) and an **EPA-standard CO₂ Emission Savings calculator**.
 
 ---
 
@@ -67,6 +70,7 @@ Societies accumulate credits and compete on a citywide leaderboard, unlocking mu
 - **React.js** (Vite)
 - **Tailwind CSS**
 - **Lucide Icons**
+- **Recharts** (Data Visualization)
 
 ### Backend
 - **Node.js**

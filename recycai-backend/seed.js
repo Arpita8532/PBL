@@ -33,7 +33,7 @@ async function seed() {
   console.log("Starting data generation...");
 
   // 1. Create 3 Recycling Collector accounts (reduced from 10)
-  const recycling collectors = [];
+  const recyclingCollectors = [];
   for (let i = 0; i < 3; i++) {
     // Offset by 4 to avoid overwriting COLLECTOR-01 to COLLECTOR-04
     const idNum = String(i + 5).padStart(2, '0');
@@ -45,7 +45,7 @@ async function seed() {
       createdAt: admin.firestore.FieldValue.serverTimestamp()
     };
     await kRef.set(kData);
-    recycling collectors.push(kData);
+    recyclingCollectors.push(kData);
     console.log(`Created Recycling Collector: ${kData.name} (${kData.id})`);
   }
 
@@ -106,7 +106,7 @@ async function seed() {
       };
       
       // Always assign a collector to ensure fair distribution across Recycling Collectors
-      const randomCollector = recycling collectors[Math.floor(Math.random() * recycling collectors.length)];
+      const randomCollector = recyclingCollectors[Math.floor(Math.random() * recyclingCollectors.length)];
       pData.collectorId = randomCollector.id;
       pData.collectorName = randomCollector.name;
       
