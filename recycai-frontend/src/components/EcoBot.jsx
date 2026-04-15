@@ -113,16 +113,25 @@ export default function EcoBot() {
   return (
     <>
       {/* ── Floating toggle button ── */}
+      <style>{`
+        @keyframes ecoPulse {
+          0%   { box-shadow: 0 0 0 0 rgba(245,158,11,0.75), 0 6px 28px rgba(245,158,11,0.5); }
+          70%  { box-shadow: 0 0 0 16px rgba(245,158,11,0),  0 6px 28px rgba(245,158,11,0.25); }
+          100% { box-shadow: 0 0 0 0 rgba(245,158,11,0),  0 6px 28px rgba(245,158,11,0.5); }
+        }
+        .ecobot-idle { animation: ecoPulse 2.2s ease-in-out infinite; }
+      `}</style>
       <button
         id="ecobot-toggle-btn"
         onClick={() => setOpen((o) => !o)}
         title={open ? "Close EcoBot" : "Chat with EcoBot"}
-        className={`fixed bottom-6 right-6 w-14 h-14 rounded-full shadow-xl flex items-center justify-center text-2xl z-50 transition-all duration-300 hover:scale-110 active:scale-95 ${
-          open
-            ? "bg-red-500 hover:bg-red-600 text-white"
-            : "bg-green-600 hover:bg-green-700 text-white"
+        className={`fixed bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center text-2xl z-50 text-white font-bold transition-transform duration-200 hover:scale-110 active:scale-95 ${
+          open ? "" : "ecobot-idle"
         }`}
-        style={{ boxShadow: open ? undefined : "0 4px 24px rgba(22,163,74,0.45)" }}
+        style={open
+          ? { background: "#ef4444", boxShadow: "0 4px 20px rgba(239,68,68,0.55)" }
+          : { background: "linear-gradient(135deg,#f59e0b,#ea580c)" }
+        }
       >
         {open ? "✕" : "♻️"}
       </button>
@@ -198,12 +207,12 @@ export default function EcoBot() {
               ref={inputRef}
               id="ecobot-input"
               rows={1}
-              className="flex-1 text-sm px-3 py-2 rounded-xl border border-gray-200 outline-none focus:border-green-400 resize-none leading-relaxed"
+              className="flex-1 text-sm px-3 py-2 rounded-xl border border-gray-300 outline-none focus:border-amber-400 focus:ring-2 focus:ring-amber-200 resize-none leading-relaxed"
               placeholder="Ask about recycling…"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={handleKey}
-              style={{ maxHeight: "80px" }}
+              style={{ maxHeight: "80px", background: "#ffffff", color: "#1f2937" }}
             />
             <button
               id="ecobot-send-btn"
